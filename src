@@ -1,0 +1,117 @@
+importar  pandas  como  pd 
+importar  matplotlib.pyplot  como  plt 
+de  statsmodels.tsa.arima.model  importar  ARIMA
+
+# Caminho do arquivo no Google Drive 
+file_url  =  "https://drive.google.com/uc?id=1bCfacYCzpkP3P0wYQWDgdfs6pT0uQCma"
+
+#Leitura do arquivo CSV diretamente do Google Drive 
+df  =  pd . read_csv ( url_do_arquivo )
+
+# Convertendo a coluna 'Date' para o formato datetime 
+df [ 'Date' ]  =  pd . to_datetime ( df [ 'Data' ])
+
+# Definindo a coluna 'Data' como índice 
+df . set_index ( 'Data' ,  inplace = True )
+
+# Plotando os gráficos de preços de fechamento 
+plt . figura ( figsize = ( 10 ,  6 )) 
+plt . plot ( df [ 'Fechar' ],  cor = 'azul' ) 
+plt . title ( 'Preços de Fechamento das Ações do Walmart' ) 
+plt . xlabel ( 'Dados' ) 
+plt . ylabel ( 'Preço de Fechamento' ) 
+plt . grade ( Verdadeiro ) 
+plt . mostrar ()
+
+# Modelo ARIMA 
+model  =  ARIMA ( df [ 'Fechar' ],  order = ( 5 , 1 , 0 )) 
+model_fit  =  model . fit ()
+
+# Resumo do modelo 
+print ( model_fit . summary ())
+
+# Plotando os resíduos do modelo 
+plt . figure ( figsize = ( 10 ,  6 )) 
+plt . plot ( model_fit . resid ,  color = 'green' ) 
+plt . title ( 'Resíduos do Modelo ARIMA' ) 
+plt . xlabel ( 'Dados' ) 
+plt . ylabel ( 'Resíduos' ) 
+plt . grid ( True ) 
+plt . show ()
+
+# Previsões 
+forecast  =  model_fit . forecast ( steps = 30 )
+
+# Plotando as variações 
+plt . figura ( figsize = ( 10 ,  6 )) 
+plt . plot ( df . index ,  df [ 'Fechar' ],  label = 'Observado' ,  color = 'blue' ) 
+plt . plot ( pd . intervalo_data ( início = df . índice [ - 1 ],  períodos = 31 ,  freq = 'B' )[ 1 :],  previsão ,  rótulo = 'Previsão' ,  cor = 'vermelho' ) 
+plt . title ( 'Previsão de Preços das Ações do Walmart' ) 
+plt . xlabel ( 'Dados' ) 
+plt . ylabel ( 'Preço de Fechamento' ) 
+plt . legenda () 
+plt . grade ( Verdadeiro ) 
+plt . mostrar ()
+
+# Relatório
+print("\nRelatório:")
+print("O modelo ARIMA foi ajustado aos dados históricos de preços de fechamento das ações do Walmart.")
+print("Com base nos resíduos do modelo, parece que não há padrões significativos restantes.")
+print("As previsões futuras mostram uma tendência de aumento nos preços das ações do Walmart.")
+print("No entanto, é importante considerar outras variáveis e eventos externos que podem afetar os preços das ações.")
+print("\nDados Externos Relevantes:")
+print("- Relatórios financeiros trimestrais do Walmart")
+print("- Notícias sobre a empresa e o setor de varejo")
+print("- Indicadores econômicos, como taxas de juros e indicadores de consumo")
+Matplotlib is building the font cache; this may take a moment.
+No description has been provided for this image
+/opt/conda/envs/anaconda-panel-2023.05-py310/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  self._init_dates(dates, freq)
+/opt/conda/envs/anaconda-panel-2023.05-py310/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  self._init_dates(dates, freq)
+/opt/conda/envs/anaconda-panel-2023.05-py310/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:473: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  self._init_dates(dates, freq)
+                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                  Close   No. Observations:                 6118
+Model:                 ARIMA(5, 1, 0)   Log Likelihood               -2826.687
+Date:                Wed, 15 May 2024   AIC                           5665.373
+Time:                        22:46:20   BIC                           5705.686
+Sample:                             0   HQIC                          5679.359
+                               - 6118                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1         -0.0451      0.005     -9.129      0.000      -0.055      -0.035
+ar.L2         -0.0286      0.006     -4.415      0.000      -0.041      -0.016
+ar.L3         -0.0148      0.006     -2.279      0.023      -0.027      -0.002
+ar.L4         -0.0384      0.008     -4.695      0.000      -0.054      -0.022
+ar.L5         -0.0108      0.009     -1.207      0.227      -0.028       0.007
+sigma2         0.1475      0.001    189.057      0.000       0.146       0.149
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):            142037.16
+Prob(Q):                              0.97   Prob(JB):                         0.00
+Heteroskedasticity (H):               2.89   Skew:                            -0.61
+Prob(H) (two-sided):                  0.00   Kurtosis:                        26.58
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+No description has been provided for this image
+/opt/conda/envs/anaconda-panel-2023.05-py310/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:836: ValueWarning: No supported index is available. Prediction results will be given with an integer index beginning at `start`.
+  return get_prediction_index(
+/opt/conda/envs/anaconda-panel-2023.05-py310/lib/python3.11/site-packages/statsmodels/tsa/base/tsa_model.py:836: FutureWarning: No supported index is available. In the next version, calling this method in a model without a supported index will result in an exception.
+  return get_prediction_index(
+No description has been provided for this image
+Relatório:
+O modelo ARIMA foi ajustado aos dados históricos de preços de fechamento das ações do Walmart.
+Com base nos resíduos do modelo, parece que não há padrões significativos restantes.
+As previsões futuras mostram uma tendência de aumento nos preços das ações do Walmart.
+No entanto, é importante considerar outras variáveis e eventos externos que podem afetar os preços das ações.
+
+Dados Externos Relevantes:
+- Relatórios financeiros trimestrais do Walmart
+- Notícias sobre a empresa e o setor de varejo
+- Indicadores econômicos, como taxas de juros e indicadores de consumo
+ 
