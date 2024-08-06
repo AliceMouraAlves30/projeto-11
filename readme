@@ -1,0 +1,29 @@
+# Análise e Previsão dos Preços das Ações do Walmart
+
+Este projeto realiza uma análise e previsão dos preços de fechamento das ações do Walmart usando um modelo ARIMA. O código está escrito em Python e utiliza bibliotecas como Pandas, Matplotlib e Statsmodels.
+
+## Descrição
+
+O objetivo deste projeto é realizar uma análise exploratória dos dados históricos de preços das ações do Walmart e fazer previsões para os próximos 30 dias. O projeto inclui:
+
+1. **Leitura dos dados**: Os dados são lidos diretamente de um arquivo CSV armazenado no Google Drive.
+2. **Análise exploratória**: São gerados gráficos para visualizar os preços de fechamento das ações ao longo do tempo.
+3. **Modelo ARIMA**: Um modelo ARIMA é ajustado aos dados para fazer previsões futuras.
+4. **Visualização das previsões**: As previsões são plotadas junto com os dados observados.
+5. **Relatório**: Um relatório resumido das análises e previsões é gerado.
+
+## Requisitos
+
+- Python 3.7+
+- Pandas
+- Matplotlib
+- Statsmodels
+
+## Instalação
+
+Clone o repositório e instale os pacotes necessários:
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+pip install -r requirements.txt
